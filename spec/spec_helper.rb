@@ -67,3 +67,35 @@ def x3270_system
   @x3270_system ||= double('x3270_system')
   @x3270_system
 end
+
+def passport_system
+  @passport_system ||= double('system')
+  allow(@passport_system).to receive(:Sessions).and_return passport_sessions
+  allow(@passport_system).to receive(:Version).and_return("0")
+  @passport_system
+end
+
+def passport_sessions
+  @passport_sessions ||= double('sessions')
+  allow(@passport_sessions).to receive(:Count).and_return 0
+  allow(@passport_sessions).to receive(:Open).and_return passport_session
+  @passport_sessions
+end
+
+def passport_session
+  @passport_session ||= double('session')
+  allow(@passport_session).to receive(:Screen).and_return passport_screen
+  allow(@passport_session).to receive(:WindowState=)
+  allow(@passport_session).to receive(:Visible=)
+  @passport_session
+end
+
+def passport_screen
+  @passport_screen ||= double('screen')
+  allow(@passport_screen).to receive(:SelectAll).and_return passport_area
+  @passport_screen
+end
+
+def passport_area
+  @passport_area ||= double('area')
+end
